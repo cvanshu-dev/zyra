@@ -1,8 +1,17 @@
 // app/api/google/login/route.js
-
+import { auth } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
 
 export async function GET() {
+  const { userId } = auth();
+
+  if (!userId) {
+    return NextResponse.json(
+      { error: "Not authenticated" },
+      { status: 401 }
+    );
+  }
+
   const params = new URLSearchParams({
     client_id: process.env.GOOGLE_CLIENT_ID,
     redirect_uri: process.env.GOOGLE_REDIRECT_URI,
@@ -19,6 +28,7 @@ export async function GET() {
     ].join(" "),
     access_type: "offline",
     prompt: "consent",
+    state: userId, // 🔥 THIS IS THE CRITICAL LINE
   });
 
   return NextResponse.redirect(

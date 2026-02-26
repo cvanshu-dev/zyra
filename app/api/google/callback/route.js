@@ -68,7 +68,9 @@ export async function GET(req) {
       },
     });
 
-    return NextResponse.redirect(new URL("/dashboard", req.url));
+    return NextResponse.redirect(
+  process.env.NEXT_PUBLIC_APP_URL + "/dashboard"
+);
   } catch (error) {
     console.error("Callback error:", error);
     return NextResponse.json({ error: "Internal error" }, { status: 500 });
