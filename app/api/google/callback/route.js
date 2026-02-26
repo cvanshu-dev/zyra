@@ -1,15 +1,15 @@
 import { prisma } from "@/lib/db";
 import { NextResponse } from "next/server";
-import { auth } from "@clerk/nextjs/server";
+
 
 export async function GET(req) {
   try {
-    const { userId } = auth();
+const userId = req.nextUrl.searchParams.get("state");
 
 if (!userId) {
   return NextResponse.json(
-    { error: "User not authenticated" },
-    { status: 401 }
+    { error: "Missing state parameter" },
+    { status: 400 }
   );
 }
     const code = req.nextUrl.searchParams.get("code");
