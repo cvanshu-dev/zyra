@@ -25,25 +25,35 @@ export default function Home() {
               <p className="text-lg md:text-xl text-fuchsia max-w-md">
                 Book video consultations and confidently manage your health journey using a platform that transparently displays doctor success rates.
               </p>
-              <div className="flex flex-col sm:flex-row gap-4">
-                <Button
-                  asChild
-                  size="lg"
-                  className="bg-fuchsia-600 text-white hover:bg-fuchsia-700"
-                >
-                  <Link href="/onboarding">
-                    Get Started <ArrowRight className="ml-2 h-4 w-4" />
-                  </Link>
-                </Button>
-                <Button
-                  asChild
-                  variant="outline"
-                  size="lg"
-                  className="border-fuchsia-700/30 hover:bg-muted/80"
-                >
-                  <Link href="/doctors">Find Doctors</Link>
-                </Button>
-              </div>
+             <div className="flex flex-col sm:flex-row gap-4">
+  <Button
+    asChild
+    size="lg"
+    className="bg-fuchsia-600 text-white hover:bg-fuchsia-700"
+  >
+    <Link href="/dashboard">
+      AI Health Dashboard <ArrowRight className="ml-2 h-4 w-4" />
+    </Link>
+  </Button>
+
+  <Button
+    asChild
+    variant="outline"
+    size="lg"
+    className="border-fuchsia-700/30 hover:bg-muted/80 text-white"
+  >
+    <Link href="/doctors">Find Doctors</Link>
+  </Button>
+
+  <Button
+    asChild
+    variant="ghost"
+    size="lg"
+    className="text-fuchsia-400 hover:text-white"
+  >
+    <Link href="/onboarding">Get Started</Link>
+  </Button>
+</div>
             </div>
 
             <div className="relative h-[600px] lg:h-[700px] rounded-xl overflow-hidden">
@@ -224,22 +234,34 @@ export default function Home() {
                   healthcare the way it should be.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4">
-                  <Button
-                    asChild
-                    size="lg"
-                    className="bg-fuchsia-600 text-white hover:bg-fuchsia-700"
-                  >
-                    <Link href="/sign-up">Sign Up Now</Link>
-                  </Button>
-                  <Button
-                    asChild
-                    variant="outline"
-                    size="lg"
-                    className="border-fuchsia-700/30 hover:bg-muted/80"
-                  >
-                    <Link href="#pricing">View Pricing</Link>
-                  </Button>
-                </div>
+  <Button
+    asChild
+    size="lg"
+    className="bg-fuchsia-600 text-white hover:bg-fuchsia-700"
+  >
+    <Link href="/dashboard">
+      AI Health Dashboard <ArrowRight className="ml-2 h-4 w-4" />
+    </Link>
+  </Button>
+
+  <Button
+    asChild
+    variant="outline"
+    size="lg"
+    className="border-fuchsia-700/30 hover:bg-muted/80"
+  >
+    <Link href="/doctors">Find Doctors</Link>
+  </Button>
+
+  <Button
+    asChild
+    variant="ghost"
+    size="lg"
+    className="text-fuchsia-400 hover:text-white"
+  >
+    <Link href="/onboarding">Get Started</Link>
+  </Button>
+</div>
               </div>
 
               {/* Decorative healthcare elements */}
