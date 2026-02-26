@@ -1,0 +1,254 @@
+import Image from "next/image";
+import Link from "next/link";
+import { ArrowRight, Stethoscope } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import Pricing from "@/components/pricing";
+import { creditBenefits, features, testimonials } from "@/lib/data";
+
+export default function Home() {
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-white to-grey-400">
+
+
+      {/* Hero Section */}
+      <section className="relative overflow-hidden py-32">
+        <div className="container mx-auto px-4">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div className="space-y-8">
+             
+              <h1 className="text-4xl md:text-4xl lg:text-6xl font-bold text-white leading-tight">
+                Healthcare Results. Optimized by Data.  <br />
+                <span className="gradient-title">Find Top Doctors with proven results.</span>
+              </h1>
+              <p className="text-lg md:text-xl text-fuchsia max-w-md">
+                Book video consultations and confidently manage your health journey using a platform that transparently displays doctor success rates.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4">
+                <Button
+                  asChild
+                  size="lg"
+                  className="bg-fuchsia-600 text-white hover:bg-fuchsia-700"
+                >
+                  <Link href="/onboarding">
+                    Get Started <ArrowRight className="ml-2 h-4 w-4" />
+                  </Link>
+                </Button>
+                <Button
+                  asChild
+                  variant="outline"
+                  size="lg"
+                  className="border-fuchsia-700/30 hover:bg-muted/80"
+                >
+                  <Link href="/doctors">Find Doctors</Link>
+                </Button>
+              </div>
+            </div>
+
+            <div className="relative h-[600px] lg:h-[700px] rounded-xl overflow-hidden">
+              <Image
+                src="/tanya.png"
+                alt="Doctor consultation"
+                fill
+                priority
+                className="object-contain md:pt-14 rounded-xl"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Features Section */}
+      <section className="py-20 bg-muted/30">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+              How It Works
+            </h2>
+            <p className="text-  text-lg max-w-2xl mx-auto">
+              Our platform makes healthcare accessible with just a few clicks
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {features.map((feature, index) => (
+              <Card
+                key={index}
+               className="bg-white/5 border border-white/10 backdrop-blur-2xl shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] rounded-2xl transition-all duration-500 hover:bg-white/10 hover:border-white/30 hover:shadow-[0_8px_32px_0_rgba(88,28,135,0.45)]"
+
+              >
+                <CardHeader className="pb-2">
+                  <div className="bg--900/20 p-3 rounded-lg w-fit mb-4">
+                    {feature.icon}
+                  </div>
+                  <CardTitle className="text-xl font-semibold text-white">
+                    {feature.title}
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text- ">{feature.description}</p>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Pricing Section with green medical styling */}
+      <section id="pricing" className="py-20">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-16">
+            <Badge
+              variant="outline"
+              className="bg-fuchsia-900/30 border-fuchsia-700/30 px-4 py-1 text-fuchsia-400 text-sm font-medium mb-4"
+            >
+              Affordable Healthcare
+            </Badge>
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+              Consultation Packages
+            </h2>
+            <p className="text-  text-lg max-w-2xl mx-auto">
+              Choose the perfect consultation package that fits your healthcare
+              needs
+            </p>
+          </div>
+
+          <div className="mx-auto">
+            {/* Clerk Pricing Table */}
+            <Pricing />
+
+            {/* Description */}
+            <Card className="mt-12 bg-muted/20 border-fuchsia-900/30">
+              <CardHeader>
+                <CardTitle className="text-xl font-semibold text-white flex items-center">
+                  <Stethoscope className="h-5 w-5 mr-2 text-fuchsia-400" />
+                  How Our Credit System Works
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <ul className="space-y-3">
+                  {creditBenefits.map((benefit, index) => (
+                    <li key={index} className="flex items-start">
+                      <div className="mr-3 mt-1 bg-fuchsia-900/20 p-1 rounded-full">
+                        <svg
+                          className="h-4 w-4 text-fuchsia-400"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth="2"
+                            d="M5 13l4 4L19 7"
+                          ></path>
+                        </svg>
+                      </div>
+                      <p
+                        className="text- "
+                        dangerouslySetInnerHTML={{ __html: benefit }}
+                      />
+                    </li>
+                  ))}
+                </ul>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
+
+      {/* Testimonials with green medical accents */}
+      <section className="py-20 bg-muted/30">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-16">
+            <Badge
+              variant="outline"
+              className="bg-fuchsia-900/30 border-fuchsia-700/30 px-4 py-1 text-fuchsia-400 text-sm font-medium mb-4"
+            >
+              Success Stories
+            </Badge>
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+              What Our Users Say
+            </h2>
+            <p className="text-  text-lg max-w-2xl mx-auto">
+              Hear from patients and doctors who use our platform
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {testimonials.map((testimonial, index) => (
+              <Card
+                key={index}
+                className="border-fuchsia-900/20 hover:border-fuchsia-800/40 transition-all"
+              >
+                <CardContent className="pt-6">
+                  <div className="flex items-center mb-4">
+                    <div className="w-12 h-12 rounded-full bg-fuchsia-900/20 flex items-center justify-center mr-4">
+                      <span className="text-fuchsia-400 font-bold">
+                        {testimonial.initials}
+                      </span>
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-white">
+                        {testimonial.name}
+                      </h4>
+                      <p className="text-sm text- ">
+                        {testimonial.role}
+                      </p>
+                    </div>
+                  </div>
+                  <p className="text- ">
+                    &quot;{testimonial.quote}&quot;
+                  </p>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section with green medical styling */}
+      <section className="py-20">
+        <div className="container mx-auto px-4">
+          <Card className="bg-gradient-to-r from-fuchsia-900/30 to-fuchsia-950/20 border-fuchsia-800/20">
+            <CardContent className="p-8 md:p-12 lg:p-16 relative overflow-hidden">
+              <div className="max-w-2xl relative z-10">
+                <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
+                  Ready to take control of your healthcare?
+                </h2>
+                <p className="text-lg text-  mb-8">
+                  Join thousands of users who have simplified their healthcare
+                  journey with our platform. Get started today and experience
+                  healthcare the way it should be.
+                </p>
+                <div className="flex flex-col sm:flex-row gap-4">
+                  <Button
+                    asChild
+                    size="lg"
+                    className="bg-fuchsia-600 text-white hover:bg-fuchsia-700"
+                  >
+                    <Link href="/sign-up">Sign Up Now</Link>
+                  </Button>
+                  <Button
+                    asChild
+                    variant="outline"
+                    size="lg"
+                    className="border-fuchsia-700/30 hover:bg-muted/80"
+                  >
+                    <Link href="#pricing">View Pricing</Link>
+                  </Button>
+                </div>
+              </div>
+
+              {/* Decorative healthcare elements */}
+              <div className="absolute right-0 top-0 w-[300px] h-[300px] bg-fuchsia-800/10 rounded-full blur-3xl -mr-20 -mt-20"></div>
+              <div className="absolute left-0 bottom-0 w-[200px] h-[200px] bg-fuchsia-700/10 rounded-full blur-3xl -ml-10 -mb-10"></div>
+            </CardContent>
+          </Card>
+        </div>
+      </section>
+    </div>
+  );
+}
