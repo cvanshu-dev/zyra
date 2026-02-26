@@ -1,3 +1,5 @@
+// app/api/google/login/route.js
+
 import { NextResponse } from "next/server";
 
 export async function GET() {
@@ -13,11 +15,7 @@ export async function GET() {
       "https://www.googleapis.com/auth/fitness.blood_pressure.read",
       "https://www.googleapis.com/auth/fitness.blood_glucose.read",
       "https://www.googleapis.com/auth/fitness.oxygen_saturation.read",
-      "https://www.googleapis.com/auth/fitness.body_temperature.read",
-      // Note: `fitness.respiratory_rate.read` is not accepted by Google's
-      // OAuth consent in many projects and can cause `invalid_scope`.
-      // It's omitted to avoid login failures. Re-add only after verifying
-      // the scope in Google Cloud console if required.
+      "https://www.googleapis.com/auth/fitness.body_temperature.read"
     ].join(" "),
     access_type: "offline",
     prompt: "consent",

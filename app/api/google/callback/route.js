@@ -68,7 +68,7 @@ export async function GET(req) {
       },
     });
 
-    return NextResponse.redirect("http://localhost:3000/dashboard");
+    return NextResponse.redirect(new URL("/dashboard", req.url));
   } catch (error) {
     console.error("Callback error:", error);
     return NextResponse.json({ error: "Internal error" }, { status: 500 });

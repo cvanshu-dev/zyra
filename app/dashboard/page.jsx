@@ -14,6 +14,8 @@ export default function Dashboard() {
   const [loading, setLoading] = useState(true);
   const [activeMetric, setActiveMetric] = useState(null);
   const [activeTab, setActiveTab] = useState("today");
+  const [authorized, setAuthorized] = useState(false);
+const [checkingAuth, setCheckingAuth] = useState(true);
 
   // ✅ NEW STATES FOR AI
   const [aiResult, setAiResult] = useState(null);
@@ -86,12 +88,33 @@ const [historyView, setHistoryView] = useState("current");
     setAiLoading(false);
   }
 }
+useEffect(() => {
+  async function verifyConnection() {
+    try {
+      const res = await fetch("/api/health/check");
 
+      if (!res.ok) {
+        window.location.href = "/api/google/login";
+        return;
+      }
+
+      setAuthorized(true);
+    } catch (err) {
+      window.location.href = "/api/google/login";
+    } finally {
+      setCheckingAuth(false);
+    }
+  }
+
+  verifyConnection();
+}, []);
 
   // ✅ TRIGGER AI WHEN TAB CHANGES OR DATA LOADS
- useEffect(() => {
-  analyze();
-}, []);
+useEffect(() => {
+  if (authorized) {
+    analyze();
+  }
+}, [authorized]);
 
 useEffect(() => {
   async function loadHistory() {
@@ -120,7 +143,17 @@ useEffect(() => {
   callAI();
 }, [activeTab]);
 
+if (checkingAuth) {
+  return (
+    <div className="min-h-screen flex items-center justify-center">
+      Verifying connection...
+    </div>
+  );
+}
 
+if (!authorized) {
+  return null;
+}
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
