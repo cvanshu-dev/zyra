@@ -1,17 +1,8 @@
 import { prisma } from "@/lib/db";
 import { NextResponse } from "next/server";
 
-
 export async function GET(req) {
   try {
-const userId = req.nextUrl.searchParams.get("state");
-
-if (!userId) {
-  return NextResponse.json(
-    { error: "Missing state parameter" },
-    { status: 400 }
-  );
-}
     const code = req.nextUrl.searchParams.get("code");
 
     if (!code) {
@@ -47,17 +38,14 @@ if (!userId) {
     }
 
     // 🔥 TEMPORARY: Use an existing user from DB for now
- // 🔥 TEMPORARY: Use an existing user from DB for now
-// Ensure user exists for this Clerk account
-let user = await prisma.user.findUnique({
-  where: { clerkId: userId },
-});
+    const user = await prisma.user.findFirst();
 
-if (!user) {
-  user = await prisma.user.create({
-    data: { clerkId: userId },
-  });
-}
+    if (!user) {
+      return NextResponse.json(
+        { error: "No user exists in DB. Create one first." },
+        { status: 400 }
+      );
+    }
 
     await prisma.wearableToken.upsert({
       where: {
