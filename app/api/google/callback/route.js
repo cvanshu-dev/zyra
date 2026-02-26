@@ -1,8 +1,17 @@
 import { prisma } from "@/lib/db";
 import { NextResponse } from "next/server";
+import { auth } from "@clerk/nextjs/server";
 
 export async function GET(req) {
   try {
+    const { userId } = auth();
+
+if (!userId) {
+  return NextResponse.json(
+    { error: "User not authenticated" },
+    { status: 401 }
+  );
+}
     const code = req.nextUrl.searchParams.get("code");
 
     if (!code) {
@@ -38,14 +47,17 @@ export async function GET(req) {
     }
 
     // 🔥 TEMPORARY: Use an existing user from DB for now
-    const user = await prisma.user.findFirst();
+ // 🔥 TEMPORARY: Use an existing user from DB for now
+// Ensure user exists for this Clerk account
+let user = await prisma.user.findUnique({
+  where: { clerkId: userId },
+});
 
-    if (!user) {
-      return NextResponse.json(
-        { error: "No user exists in DB. Create one first." },
-        { status: 400 }
-      );
-    }
+if (!user) {
+  user = await prisma.user.create({
+    data: { clerkId: userId },
+  });
+}
 
     await prisma.wearableToken.upsert({
       where: {
